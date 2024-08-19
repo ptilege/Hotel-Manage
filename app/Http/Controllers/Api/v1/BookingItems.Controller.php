@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers\Api\v1;
+
+use App\Http\Controllers\Controller;
+use App\Models\Booking;
+use App\Models\BookingItem;
+use Illuminate\Http\Request;
+
+class BookingItemsController extends Controller
+{
+    public function index(Request $request) {
+        
+        try {
+            $bookingItems = BookingItem::where(['status'=>1])->get();
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully',
+                'data' => $bookingItems
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+                'errors' => null
+            ], 401);
+        }
+    }
+
+    public function create(Request $request) {}
+
+    public function update(Request $request) {}
+
+    public function delete(Request $request) {}
+}
